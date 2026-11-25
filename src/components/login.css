@@ -1,0 +1,132 @@
+.login-page {
+  min-height: 100vh;
+  padding: 96px 24px 64px;
+  background: #0e161c;
+  color: #f5f3f5;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 72px 63px 108px;
+  border: 1px solid #2a3b45;
+  border-radius: 20px;
+  background: #181f25;
+  text-align: center;
+}
+
+.login-brand {
+  display: block;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto;
+  color: #7db4cc;
+}
+
+.login-card h1 {
+  margin: 42px 0 0;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.login-subtitle,
+.login-demo-note {
+  color: #a2bed3;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.login-subtitle {
+  margin: 34px 0 33px;
+}
+
+.microsoft-sign-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  min-height: 66px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 13px;
+  background: #7db4cc;
+  color: #06141d;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.microsoft-sign-in:hover {
+  background: #91c4da;
+}
+
+.microsoft-sign-in:active {
+  background: #6aa3bc;
+}
+
+.microsoft-sign-in:focus-visible {
+  outline: 3px solid #d2edfa;
+  outline-offset: 5px;
+}
+
+.microsoft-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.login-demo-note {
+  margin: 31px 0 0;
+}
+
+.login-status {
+  margin: 0;
+  color: #a2bed3;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.login-status:not(:empty) {
+  margin-top: 20px;
+}
+
+@media (max-width: 640px) {
+  .login-page {
+    padding: 48px 20px;
+  }
+
+  .login-card {
+    padding: 48px 24px 56px;
+  }
+
+  .login-card h1 {
+    margin-top: 32px;
+    font-size: 30px;
+  }
+
+  .login-subtitle,
+  .login-demo-note {
+    font-size: 18px;
+  }
+
+  .login-subtitle {
+    margin: 24px 0 28px;
+  }
+
+  .microsoft-sign-in {
+    gap: 12px;
+    padding: 14px 12px;
+    font-size: 18px;
+  }
+
+  .microsoft-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
