@@ -5,6 +5,7 @@ export const BASE_URL = (
 const ACCESS_TOKEN_KEY = 'access_token';
 
 export const USERS_ENDPOINT = `${BASE_URL}/api/v1`;
+export const PROJECTS_ENDPOINT = `${BASE_URL}/api/v1/projects`;
 
 export const DUMMY_CREDENTIALS = {
   username: 'dummy',
@@ -36,6 +37,17 @@ export class ApiError extends Error {
     this.status = status;
     this.data = data;
   }
+}
+
+export function formatApiError(error) {
+  if (error.status === 401) return 'Your session has expired. Please sign in again.';
+  if (Array.isArray(error.data?.detail)) {
+    return error.data.detail.map((item) => `${item.loc?.slice(1).join('.') || 'Request'}: ${item.msg}`).join(' ');
+  }
+  if (error instanceof TypeError && !error.status) {
+    return 'Unable to reach the backend. Check the connection and try again.';
+  }
+  return error.message || 'Something went wrong. Please try again.';
 }
 
 function buildUrl(endpoint, params) {
@@ -75,6 +87,7 @@ export async function apiRequest(endpoint, options = {}) {
     data,
     params,
     auth = true,
+    responseType,
     headers: customHeaders = {},
     ...fetchOptions
   } = options;
@@ -108,6 +121,10 @@ export async function apiRequest(endpoint, options = {}) {
 
   if (response.status === 204 || response.status === 205) {
     return null;
+  }
+
+  if (response.ok && responseType === 'blob') {
+    return response.blob();
   }
 
   const text = await response.text();

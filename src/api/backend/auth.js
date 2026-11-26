@@ -1,7 +1,9 @@
 import {
   DUMMY_CREDENTIALS,
   DUMMY_LOGIN_ENDPOINT,
+  getApi,
   postApi,
+  removeAccessToken,
   setAccessToken,
 } from '../utils';
 
@@ -22,5 +24,16 @@ export async function login(credentials = DUMMY_CREDENTIALS) {
 
   setAccessToken(response.access_token);
   return response;
+}
+
+export async function getCurrentUser(options) {
+  const response = await getApi('/api/v1/auth/me', options);
+  return response.user;
+}
+
+export function logout() {
+  const request = postApi('/api/v1/auth/logout');
+  removeAccessToken();
+  return request;
 }
 

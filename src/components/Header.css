@@ -1,0 +1,181 @@
+.app-header {
+  border-top: 6px solid #202b33;
+  border-bottom: 1px solid #2b3943;
+  background: #181f25;
+  color: #e3e9ef;
+}
+
+.app-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1720px;
+  min-height: 84px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+.app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: inherit;
+  font-size: 22px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.app-brand svg {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  color: #7db4cc;
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.header-usage {
+  position: relative;
+}
+
+.header-usage summary {
+  padding: 5px 13px;
+  border: 1px solid #394b59;
+  border-radius: 9px;
+  font-size: 18px;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+.header-usage summary::-webkit-details-marker {
+  display: none;
+}
+
+.header-usage-message {
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  right: 0;
+  width: min(280px, 75vw);
+  padding: 16px;
+  border: 1px solid #394b59;
+  border-radius: 10px;
+  background: #181f25;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 8px 24px #0004;
+}
+
+.header-account {
+  position: relative;
+}
+
+.header-avatar {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #1c3440;
+  color: #74b9d8;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.header-avatar:hover,
+.header-avatar[aria-expanded='true'] {
+  background: #274858;
+}
+
+.header-account-panel {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(250px, calc(100vw - 32px));
+  padding: 4px;
+  border: 1px solid #394b59;
+  border-radius: 10px;
+  background: #181f25;
+  box-shadow: 0 8px 24px #0004;
+}
+
+.header-account-profile {
+  padding: 12px;
+  border-bottom: 1px solid #2b3943;
+  overflow-wrap: anywhere;
+}
+
+.header-account-name,
+.header-account-email {
+  margin: 0;
+}
+
+.header-account-name {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.header-account-email {
+  color: #9cbbcf;
+  font-size: 14px;
+}
+
+.header-account-logout {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.header-account-logout:hover {
+  background: #202932;
+}
+
+.app-brand:focus-visible,
+.header-usage summary:focus-visible,
+.header-avatar:focus-visible,
+.header-account-logout:focus-visible {
+  outline: 2px solid #7db4cc;
+  outline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .app-header-inner {
+    min-height: 72px;
+    gap: 12px;
+  }
+
+  .app-brand {
+    gap: 8px;
+    font-size: 18px;
+  }
+
+  .app-header-actions {
+    gap: 12px;
+  }
+
+  .header-usage summary {
+    padding: 5px 10px;
+    font-size: 15px;
+  }
+
+  .header-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
+}
