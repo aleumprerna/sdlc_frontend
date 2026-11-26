@@ -1,8 +1,27 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../api/backend/auth';
 import './login.css';
 
 function Login() {
-  const [signInMessage, setSignInMessage] = useState('');
+  const navigate = useNavigate();
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [error, setError] = useState('');
+
+  async function handleLogin() {
+    if (isSigningIn) return;
+    setIsSigningIn(true);
+    setError('');
+
+    try {
+      await login();
+      navigate('/home', { replace: true });
+    } catch (loginError) {
+      setError(loginError.message || 'Unable to sign in. Please try again.');
+    } finally {
+      setIsSigningIn(false);
+    }
+  }
 
   return (
     <main className="login-page">
@@ -33,9 +52,9 @@ function Login() {
           className="microsoft-sign-in"
           type="button"
           aria-describedby="login-demo-note"
-          onClick={() =>
-            setSignInMessage('Microsoft sign-in is not configured yet.')
-          }
+          onClick={handleLogin}
+          disabled={isSigningIn}
+          aria-busy={isSigningIn}
         >
           <svg
             className="microsoft-icon"
@@ -48,13 +67,13 @@ function Login() {
               d="M0 0h12v12H0zM16 0h12v12H16zM0 16h12v12H0zM16 16h12v12H16z"
             />
           </svg>
-          <span>Sign in with Microsoft</span>
+          <span>{isSigningIn ? 'Signing in...' : 'Sign in with Microsoft'}</span>
         </button>
 
         <p id="login-demo-note" className="login-demo-note">
           For this demo, Microsoft sign-in uses the temporary account.
         </p>
-        <p className="login-status" role="status">{signInMessage}</p>
+        {error && <p className="login-status" role="alert">{error}</p>}
       </section>
     </main>
   );
