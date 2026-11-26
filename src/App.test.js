@@ -180,7 +180,7 @@ test('loads saved uploads and refreshes the list after posting a file with its f
 
     const input = screen.getByLabelText('Project document files');
     const openPicker = jest.spyOn(input, 'click');
-    fireEvent.click(screen.getByRole('button', { name: 'browse' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Browse files' }));
     expect(openPicker).toHaveBeenCalledTimes(1);
     fireEvent.change(input, { target: { files: [file] } });
 

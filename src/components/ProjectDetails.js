@@ -136,6 +136,7 @@ function ProjectDocuments({ projectId }) {
     title: upload.title || 'Untitled document',
     source: upload.source || 'uploaded',
     date: upload.created_at,
+    dateLabel: dateFormat.format(new Date(upload.created_at)),
     status: upload.state === 'indexed' ? 'ready' : upload.state,
     version: `v${upload.version_no}`,
   }));
@@ -170,10 +171,14 @@ function ProjectDocuments({ projectId }) {
             event.currentTarget.value = '';
             uploadFiles(files);
           }} />
-        <p><strong>Drop files here</strong> or <button type="button" className="project-browse" aria-describedby="project-file-types" disabled={Boolean(uploadingFile)}
-          onClick={() => fileInput.current.click()}>browse</button></p>
-        <p id="project-file-types">PDF, Word, Excel, PowerPoint, text, or Markdown</p>
-        {uploadingFile && <p role="status">Uploading {uploadingFile}…</p>}
+        <span className="project-upload-icon" aria-hidden="true">↑</span>
+        <div className="project-upload-copy">
+          <p><strong>Drop files here</strong></p>
+          <p id="project-file-types">PDF, Word, Excel, PowerPoint, text, or Markdown</p>
+          {uploadingFile && <p role="status">Uploading {uploadingFile}…</p>}
+        </div>
+        <button type="button" className="button-primary project-browse" aria-describedby="project-file-types" disabled={Boolean(uploadingFile)}
+          onClick={() => fileInput.current.click()}>Browse files</button>
       </div>
       {readingOriginal && <p role="status">Retrieving original…</p>}
       {originalError && <p className="project-details-error" role="alert">Unable to retrieve the original. {originalError}</p>}
@@ -195,17 +200,20 @@ function ProjectDocuments({ projectId }) {
         </div>
       )}
       {rows.length > 0 && (
-        <div className="project-document-table">
+        <div className="project-document-table" role="region" aria-label="Uploaded documents" tabIndex={0}>
           <table aria-label="Project documents">
-            <thead><tr><th scope="col">Name</th><th scope="col">Source</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col">Version</th><th scope="col" aria-label="Actions" /></tr></thead>
+            <thead><tr><th scope="col">Name</th><th className="document-meta-column" scope="col">Source</th><th className="document-meta-column" scope="col">Date</th><th scope="col">Status</th><th scope="col">Version</th><th className="document-actions-cell" scope="col" aria-label="Actions" /></tr></thead>
             <tbody>
               {rows.map((row) => (
                 <tr key={row.id}>
-                  <th scope="row">{row.title}</th>
-                  <td>{row.source.replace(/_/g, ' ')}</td>
-                  <td><time dateTime={row.date}>{dateFormat.format(new Date(row.date))}</time></td>
+                  <th scope="row">
+                    {row.title}
+                    <span className="document-mobile-meta" aria-hidden="true">{row.source.replace(/_/g, ' ')} · {row.dateLabel}</span>
+                  </th>
+                  <td className="document-meta-column">{row.source.replace(/_/g, ' ')}</td>
+                  <td className="document-meta-column"><time dateTime={row.date}>{row.dateLabel}</time></td>
                   <td>{row.status ? <span className={`document-status document-status-${row.status}`}>{row.status.replace(/_/g, ' ')}</span> : '—'}</td>
-                  <td>{row.version}</td>
+                  <td className="document-version">{row.version}</td>
                   <td className="document-actions-cell">
                     <DocumentActions title={row.title} isPdf={row.upload.file_type === 'pdf'}
                       reading={readingOriginal} uploading={Boolean(uploadingFile)}
@@ -275,7 +283,7 @@ function ProjectPage({ projectId }) {
   return (
     <div className="project-details-page">
       <Header />
-      <main className="project-details-content">
+      <main className="project-details-content workspace-container">
         <Link className="project-back-link" to="/home">← Projects</Link>
         {!project && !error && <p role="status">Loading project…</p>}
         {error && (
@@ -288,7 +296,7 @@ function ProjectPage({ projectId }) {
           <>
             <div className="project-details-heading">
               <div>
-                <h1>{project.name}</h1>
+                <h1 className="workspace-title">{project.name}</h1>
                 {(project.client_name || project.start_date) && (
                   <p>{[
                     project.client_name,
@@ -297,9 +305,10 @@ function ProjectPage({ projectId }) {
                 )}
               </div>
               <div className="project-status-control">
+                <label htmlFor="project-status-select">Project status</label>
                 <select
+                  id="project-status-select"
                   className="project-status-select"
-                  aria-label="Project status"
                   aria-describedby={statusError ? 'project-status-error' : undefined}
                   value={pendingStatus ?? project.status}
                   disabled={pendingStatus !== null}
@@ -317,7 +326,7 @@ function ProjectPage({ projectId }) {
                 Unable to update project status. {statusError}
               </p>
             )}
-            <div className="project-details-section-title"><h2>Documents</h2></div>
+            <div className="project-details-section-title"><h2>Knowledge Base</h2></div>
             <ProjectDocuments projectId={projectId} />
           </>
         )}

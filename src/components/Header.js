@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getCurrentUser, logout } from '../api/backend/auth';
 import './Header.css';
 
@@ -73,14 +73,14 @@ function AccountMenu() {
 function Header() {
   return (
     <header className="app-header">
-      <div className="app-header-inner">
-        <a className="app-brand" href="/home" aria-label="AI for SDLC home">
+      <div className="app-header-inner workspace-container">
+        <Link className="app-brand" to="/home" aria-label="AI for SDLC home">
           <svg viewBox="0 0 36 36" aria-hidden="true" focusable="false">
             <rect x="1" y="1" width="34" height="34" rx="8" fill="currentColor" />
-            <path d="M31 10H11v22h20" fill="none" stroke="#181f25" strokeWidth="3" strokeLinejoin="round" />
+            <path d="M27 10H10v16h17" fill="none" stroke="var(--accent-ink)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <span>AI for SDLC</span>
-        </a>
+        </Link>
 
         <div className="app-header-actions">
           <details className="header-usage">

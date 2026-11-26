@@ -60,7 +60,7 @@ export default function DocumentActions({ title, isPdf, onOpen, onDownload, onNe
         <div ref={actions} id={id} className="document-actions-panel" style={position}>
           {isPdf && <button type="button" disabled={reading} onClick={() => select(onOpen)}>Open original PDF</button>}
           <button type="button" disabled={reading} onClick={() => select(onDownload)}>Download original</button>
-          <button type="button" disabled={uploading} onClick={() => select(onNewVersion)}>Upload new version</button>
+          {/* <button type="button" disabled={uploading} onClick={() => select(onNewVersion)}>Upload new version</button> */}
         </div>,
         document.body,
       )}

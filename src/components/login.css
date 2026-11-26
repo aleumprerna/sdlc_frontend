@@ -1,134 +1,128 @@
-.login-page {
+﻿.login-page {
   display: grid;
-  place-items: center;
-  min-height: 100vh;
+  align-items: center;
   min-height: 100svh;
-  padding: 32px 20px;
-  background: #0e161c;
-  color: #f5f3f5;
+  padding-block: 42px;
+  background: radial-gradient(ellipse at 14% 16%, #183431 0%, transparent 54%), var(--canvas);
 }
 
-.login-card {
-  width: 100%;
-  max-width: 560px;
-  min-width: 0;
-  margin: 0 auto;
-  padding: 40px;
-  border: 1px solid #2a3b45;
-  border-radius: 16px;
-  background: #181f25;
-  text-align: center;
+.login-shell {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.login-intro {
+  display: flex;
+  position: relative;
+  isolation: isolate;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 490px;
+  padding: clamp(32px, 6vw, 80px);
+  background: radial-gradient(ellipse at 85% 90%, #254b40, transparent 72%), #152c2d;
+}
+
+.login-intro::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(transparent 95%, #a1eaca26 95%),
+    linear-gradient(90deg, transparent 95%, #a1eaca26 95%);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(130deg, transparent 36%, black);
+  content: '';
 }
 
 .login-brand {
   display: block;
-  width: 48px;
-  height: 48px;
-  margin: 0 auto;
-  color: #7db4cc;
+  width: 52px;
+  height: 52px;
+  color: var(--accent);
 }
 
-.login-card h1 {
-  margin: 24px 0 0;
-  font-size: 26px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.login-subtitle,
-.login-demo-note {
-  color: #a2bed3;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
+.login-intro h1 {
+  margin: 24px 0 10px;
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  font-weight: 650;
+  letter-spacing: -0.07em;
+  line-height: 1;
 }
 
 .login-subtitle {
-  margin: 16px 0 28px;
+  max-width: 26ch;
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+}
+
+.login-card {
+  align-self: center;
+  min-width: 0;
+  padding: clamp(28px, 5vw, 60px);
+}
+
+.login-card h2 {
+  margin: 0 0 24px;
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.15;
 }
 
 .microsoft-sign-in {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   width: 100%;
-  min-height: 48px;
-  padding: 12px 16px;
-  border: 0;
-  border-radius: 8px;
-  background: #7db4cc;
-  color: #06141d;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  cursor: pointer;
-  transition: background-color 160ms ease;
-}
-
-.microsoft-sign-in:hover {
-  background: #91c4da;
-}
-
-.microsoft-sign-in:active {
-  background: #6aa3bc;
-}
-
-.microsoft-sign-in:disabled {
-  opacity: 0.7;
-  cursor: wait;
-}
-
-.microsoft-sign-in:focus-visible {
-  outline: 3px solid #d2edfa;
-  outline-offset: 5px;
+  min-height: 52px;
 }
 
 .microsoft-icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  flex: none;
+  width: 18px;
+  height: 18px;
 }
 
 .login-demo-note {
-  margin: 20px 0 0;
-  font-size: 14px;
+  margin: 14px 0 0;
+  color: var(--text-subtle);
+  font-size: 0.875rem;
 }
 
 .login-status {
-  margin: 0;
-  color: #a2bed3;
-  font-size: 14px;
-  line-height: 1.5;
+  margin: 16px 0 0;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--error-surface);
+  color: var(--error-text);
+  overflow-wrap: anywhere;
 }
 
-.login-status:not(:empty) {
-  margin-top: 16px;
-}
+@media (max-width: 700px) {
+  .login-shell {
+    grid-template-columns: 1fr;
+  }
 
-@media (max-width: 480px) {
-  .login-page {
-    padding: 24px 16px;
+  .login-intro {
+    min-height: 0;
+    padding: clamp(28px, 8vw, 48px);
   }
 
   .login-card {
-    padding: 32px 20px;
+    border-top: 1px solid var(--border);
+    padding: clamp(24px, 7vw, 44px);
   }
 
-  .login-card h1 {
-    font-size: 24px;
+  .login-brand {
+    width: 42px;
+    height: 42px;
   }
 
-  .login-subtitle {
-    font-size: 15px;
-  }
-
-  .microsoft-sign-in {
-    padding: 12px;
-    font-size: 15px;
-  }
-
-  .login-demo-note {
-    font-size: 13px;
+  .login-intro h1 {
+    margin-top: 18px;
   }
 }

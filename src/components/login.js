@@ -25,56 +25,35 @@ function Login() {
 
   return (
     <main className="login-page">
-      <section className="login-card" aria-labelledby="login-title">
-        <svg
-          className="login-brand"
-          viewBox="0 0 76 76"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <rect width="76" height="76" rx="20" fill="currentColor" />
-          <path
-            d="M62 20H20v45h42"
-            fill="none"
-            stroke="#0e161c"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-
-        <h1 id="login-title">AI for SDLC</h1>
-        <p className="login-subtitle">
-          Discovery workspace for the delivery team
-        </p>
-
-        <button
-          className="microsoft-sign-in"
-          type="button"
-          aria-describedby="login-demo-note"
-          onClick={handleLogin}
-          disabled={isSigningIn}
-          aria-busy={isSigningIn}
-        >
-          <svg
-            className="microsoft-icon"
-            viewBox="0 0 28 28"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              fill="currentColor"
-              d="M0 0h12v12H0zM16 0h12v12H16zM0 16h12v12H0zM16 16h12v12H16z"
-            />
+      <div className="login-shell workspace-container">
+        <div className="login-intro">
+          <svg className="login-brand" viewBox="0 0 36 36" aria-hidden="true" focusable="false">
+            <rect x="1" y="1" width="34" height="34" rx="8" fill="currentColor" />
+            <path d="M27 10H10v16h17" fill="none" stroke="var(--accent-ink)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span>{isSigningIn ? 'Signing in...' : 'Sign in with Microsoft'}</span>
-        </button>
+          <h1>AI for SDLC</h1>
+          <p className="login-subtitle">Manage project discovery and documents in one workspace.</p>
+        </div>
 
-        <p id="login-demo-note" className="login-demo-note">
-          For this demo, Microsoft sign-in uses the temporary account.
-        </p>
-        {error && <p className="login-status" role="alert">{error}</p>}
-      </section>
+        <section className="login-card" aria-labelledby="sign-in-title">
+          <h2 id="sign-in-title">Sign in</h2>
+          <button
+            className="microsoft-sign-in button-primary"
+            type="button"
+            aria-describedby="login-demo-note"
+            onClick={handleLogin}
+            disabled={isSigningIn}
+            aria-busy={isSigningIn}
+          >
+            <svg className="microsoft-icon" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M0 0h12v12H0zM16 0h12v12H16zM0 16h12v12H0zM16 16h12v12H16z" />
+            </svg>
+            <span>{isSigningIn ? 'Signing in...' : 'Sign in with Microsoft'}</span>
+          </button>
+          <p id="login-demo-note" className="login-demo-note">This demo uses a temporary account.</p>
+          {error && <p className="login-status" role="alert">{error}</p>}
+        </section>
+      </div>
     </main>
   );
 }

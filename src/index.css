@@ -1,19 +1,121 @@
-* {
-  box-sizing: border-box;
+:root {
+  color-scheme: dark;
+  --canvas: #0d191b;
+  --surface: #142426;
+  --surface-raised: #1a2e30;
+  --surface-hover: #223b3b;
+  --border: #304749;
+  --control-border: #516c6c;
+  --text: #eff6f2;
+  --text-muted: #b0c5c0;
+  --text-subtle: #95b0aa;
+  --accent: #84e8c2;
+  --accent-hover: #a8f3d7;
+  --accent-ink: #0b2921;
+  --accent-surface: #1c3935;
+  --success-text: #a0e9b4;
+  --success-surface: #1d382e;
+  --warning-text: #f7d48b;
+  --warning-surface: #392f20;
+  --error-text: #ffc1b9;
+  --error-surface: #422b2b;
+  --radius: 12px;
+  --radius-panel: 20px;
+  --shadow: 0 20px 56px #06101480;
+  --content-width: 1200px;
+  --page-gutter: clamp(18px, 4vw, 44px);
+  background: var(--canvas);
+  color: var(--text);
+  font-family: 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.5;
 }
 
-html {
-  color-scheme: dark;
-  background: #0e161c;
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-button {
+button, input, select, textarea {
   font: inherit;
+}
+
+::placeholder {
+  color: var(--text-subtle);
+  opacity: 1;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.workspace-container {
+  width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+}
+
+.workspace-title {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.button-primary,
+.cancel-project-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-weight: 650;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.button-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.button-primary:enabled:hover {
+  background: var(--accent-hover);
+}
+
+.cancel-project-button {
+  border-color: var(--control-border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.cancel-project-button:enabled:hover {
+  background: var(--surface-hover);
+  border-color: var(--text-subtle);
+}
+
+button:disabled, select:disabled, fieldset:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+dialog::backdrop {
+  background: #061011c7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
 }

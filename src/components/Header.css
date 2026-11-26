@@ -1,117 +1,125 @@
-.app-header {
-  border-top: 6px solid #202b33;
-  border-bottom: 1px solid #2b3943;
-  background: #181f25;
-  color: #e3e9ef;
+﻿.app-header {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .app-header-inner {
   display: flex;
+  min-height: 76px;
   align-items: center;
   justify-content: space-between;
-  width: 90%;
-  max-width: 1720px;
-  min-height: 84px;
-  margin: 0 auto;
-  gap: 24px;
+  gap: 16px;
 }
 
 .app-brand {
   display: inline-flex;
+  min-width: 0;
   align-items: center;
-  gap: 14px;
-  color: inherit;
-  font-size: 22px;
-  font-weight: 600;
+  gap: 10px;
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
   text-decoration: none;
 }
 
+.app-brand:hover {
+  color: var(--accent);
+}
+
 .app-brand svg {
+  flex: none;
   width: 34px;
   height: 34px;
-  flex-shrink: 0;
-  color: #7db4cc;
+  color: var(--accent);
 }
 
 .app-header-actions {
   display: flex;
+  flex: none;
   align-items: center;
-  gap: 28px;
+  gap: clamp(8px, 2.5vw, 20px);
 }
 
-.header-usage {
+.header-usage,
+.header-account {
   position: relative;
 }
 
-.header-usage summary {
-  padding: 5px 13px;
-  border: 1px solid #394b59;
-  border-radius: 9px;
-  font-size: 18px;
-  font-weight: 600;
-  list-style: none;
+.header-usage summary,
+.header-avatar {
+  display: grid;
+  min-height: 44px;
+  place-items: center;
   cursor: pointer;
+}
+
+.header-usage summary {
+  padding: 6px 14px;
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 650;
+  list-style: none;
 }
 
 .header-usage summary::-webkit-details-marker {
   display: none;
 }
 
-.header-usage-message {
-  position: absolute;
-  z-index: 1;
-  top: 100%;
-  right: 0;
-  width: min(280px, 75vw);
-  padding: 16px;
-  border: 1px solid #394b59;
-  border-radius: 10px;
-  background: #181f25;
-  font-size: 14px;
-  line-height: 1.5;
-  box-shadow: 0 8px 24px #0004;
-}
-
-.header-account {
-  position: relative;
+.header-usage summary:hover,
+.header-usage[open] summary {
+  background: var(--surface-hover);
 }
 
 .header-avatar {
-  display: grid;
-  place-items: center;
-  width: 45px;
-  height: 45px;
+  width: 44px;
   padding: 0;
-  border: 0;
+  border: 1px solid var(--control-border);
   border-radius: 50%;
-  background: #1c3440;
-  color: #74b9d8;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
+  background: var(--accent-surface);
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .header-avatar:hover,
 .header-avatar[aria-expanded='true'] {
-  background: #274858;
+  background: var(--surface-hover);
+  border-color: var(--accent);
+}
+
+.header-usage-message,
+.header-account-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(260px, calc(100vw - 36px));
+  margin: 0;
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow);
+}
+
+.header-usage-message {
+  width: min(250px, calc(100vw - 90px));
+  padding: 14px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
 }
 
 .header-account-panel {
-  position: absolute;
-  z-index: 2;
-  top: calc(100% + 8px);
-  right: 0;
-  width: min(250px, calc(100vw - 32px));
-  padding: 4px;
-  border: 1px solid #394b59;
-  border-radius: 10px;
-  background: #181f25;
-  box-shadow: 0 8px 24px #0004;
+  z-index: 1;
+  padding: 5px;
 }
 
 .header-account-profile {
   padding: 12px;
-  border-bottom: 1px solid #2b3943;
+  border-bottom: 1px solid var(--border);
   overflow-wrap: anywhere;
 }
 
@@ -122,60 +130,41 @@
 
 .header-account-name {
   margin-bottom: 4px;
-  font-weight: 600;
+  font-weight: 650;
 }
 
 .header-account-email {
-  color: #9cbbcf;
-  font-size: 14px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
 }
 
 .header-account-logout {
   width: 100%;
-  padding: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
   border: 0;
-  border-radius: 5px;
+  border-radius: 7px;
   background: transparent;
-  color: inherit;
+  color: var(--text);
   text-align: left;
   cursor: pointer;
 }
 
 .header-account-logout:hover {
-  background: #202932;
-}
-
-.app-brand:focus-visible,
-.header-usage summary:focus-visible,
-.header-avatar:focus-visible,
-.header-account-logout:focus-visible {
-  outline: 2px solid #7db4cc;
-  outline-offset: 4px;
+  background: var(--surface-hover);
 }
 
 @media (max-width: 480px) {
   .app-header-inner {
-    min-height: 72px;
-    gap: 12px;
+    min-height: 66px;
   }
 
   .app-brand {
     gap: 8px;
-    font-size: 18px;
-  }
-
-  .app-header-actions {
-    gap: 12px;
+    font-size: 1rem;
   }
 
   .header-usage summary {
-    padding: 5px 10px;
-    font-size: 15px;
-  }
-
-  .header-avatar {
-    width: 36px;
-    height: 36px;
-    font-size: 15px;
+    padding-inline: 11px;
   }
 }

@@ -88,25 +88,30 @@ function Home() {
   return (
     <div className="home-page">
       <Header />
-      <main className="home-content" aria-labelledby="projects-title">
+      <main className="home-content workspace-container" aria-labelledby="projects-title">
         <div className="projects-toolbar">
-          <h1 id="projects-title">Projects</h1>
-          <div className="projects-actions">
-            <input
-              className="project-search"
-              type="search"
-              aria-label="Search by project name"
-              placeholder="Search by project name"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-            />
-            <button className="new-project-button" type="button" onClick={() => {
-              setCreateError('');
-              projectDialog.current.showModal();
-            }}>
-              + New project
-            </button>
-          </div>
+          <h1 id="projects-title" className="workspace-title">Projects</h1>
+          <button className="button-primary" type="button" onClick={() => {
+            setCreateError('');
+            projectDialog.current.showModal();
+          }}>
+            + New project
+          </button>
+        </div>
+        <div className="projects-filters">
+          <input
+            className="project-search"
+            type="search"
+            aria-label="Search by project name"
+            placeholder="Search by project name"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          {projects.length > 0 && (
+            <p className="projects-count" aria-live="polite">
+              {search.trim() ? `${visibleProjects.length} of ${projects.length} projects` : `${projects.length} ${projects.length === 1 ? 'project' : 'projects'}`}
+            </p>
+          )}
         </div>
 
         {listError && (
@@ -120,8 +125,14 @@ function Home() {
           <div className="projects-grid" aria-busy={isLoading}>
             {visibleProjects.map((project) => (
               <article className="project-card" key={project.id}>
-                <h2><Link to={`/projects/${encodeURIComponent(project.id)}`}>{project.name}</Link></h2>
-                <ProjectStatus status={project.status} />
+                <div>
+                  <h2><Link to={`/projects/${encodeURIComponent(project.id)}`}>{project.name}</Link></h2>
+                  {project.client_name && <p className="project-card-client">{project.client_name}</p>}
+                </div>
+                <div className="project-card-footer">
+                  <ProjectStatus status={project.status} />
+                  <span className="project-card-arrow" aria-hidden="true">→</span>
+                </div>
               </article>
             ))}
           </div>
@@ -143,7 +154,7 @@ function Home() {
           <fieldset className="new-project-fields" disabled={isCreating}>
             <label htmlFor="project-name">Project name</label>
             <p id="project-name-hint">Required</p>
-            <input id="project-name" name="projectName" placeholder="For example: Northwind ITSM Implementation" aria-describedby="project-name-hint" required autoFocus />
+            <input id="project-name" name="projectName" placeholder="For example, Northwind rollout" aria-describedby="project-name-hint" required autoFocus />
 
             <label htmlFor="project-start-date">Start date</label>
             <p id="project-date-hint">Required</p>
@@ -164,7 +175,7 @@ function Home() {
           {createError && <p className="project-create-error" role="alert">{createError}</p>}
           <div className="new-project-dialog-actions">
             <button className="cancel-project-button" type="button" onClick={closeDialog} disabled={isCreating}>Cancel</button>
-            <button className="new-project-button" type="submit" disabled={isCreating}>{isCreating ? 'Creating...' : 'Create project'}</button>
+            <button className="button-primary" type="submit" disabled={isCreating}>{isCreating ? 'Creating...' : 'Create project'}</button>
           </div>
         </form>
       </dialog>
